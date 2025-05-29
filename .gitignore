@@ -1,7 +1,6 @@
 .cursorrules
 
 target/
-Cargo.lock
 **/*.rs.bk
 *.pdb
 
