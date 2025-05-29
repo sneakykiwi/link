@@ -14,6 +14,7 @@ use url::Url;
 use uuid::Uuid;
 
 use crate::{
+    AppState,
     config::CONFIG,
     error::AppError,
     models::link::{CreateLinkRequest, CreateLinkResponse, Link},
@@ -28,12 +29,6 @@ static LINK_CREATION_COUNT: Lazy<Counter> = Lazy::new(|| {
     prometheus::register_counter!("link_creation_total", "Total number of links created")
         .expect("Failed to register prometheus counter")
 });
-
-#[derive(Clone)]
-pub struct AppState {
-    pub db: Arc<DbService>,
-    pub cache: Arc<Mutex<CacheService>>,
-}
 
 pub async fn create_link(
     State(app_state): State<AppState>,
