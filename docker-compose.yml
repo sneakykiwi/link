@@ -54,7 +54,7 @@ services:
           memory: 256M
 
   prometheus:
-    image: prom/prometheus:v2.56.1
+    image: prom/prometheus:latest
     restart: unless-stopped
     ports:
       - "${PROMETHEUS_PORT:-9090}:9090"
