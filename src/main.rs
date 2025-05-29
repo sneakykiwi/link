@@ -104,7 +104,9 @@ async fn main() {
         })
         .with_state(app_state);
 
-    let addr = SocketAddr::from(([0, 0, 0, 0], config.server_port));
+    let addr: SocketAddr = format!("{}:{}", config.server_host, config.server_port)
+        .parse()
+        .expect("Failed to parse socket address");
     
     println!("Server starting on {}", addr);
     
