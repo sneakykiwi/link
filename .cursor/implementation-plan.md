@@ -592,9 +592,18 @@ plan:
 ✅ **COMPLETED**: Grafana datasource provisioning configuration
 ✅ **COMPLETED**: Directory structure for monitoring setup
 
-### ☑ 7.4 Deployment Scripts
-✅ **COMPLETED**: Selective deployment scripts for Linux (`deploy.sh`) and Windows (`deploy.bat`)
-✅ **COMPLETED**: Coolify environment template (`coolify.env.template`)
+### ☑ 7.4 Coolify Deployment Setup
+✅ **COMPLETED**: Coolify environment template (`coolify-env-template.txt`)
+✅ **COMPLETED**: Coolify deployment guide (`COOLIFY-DEPLOYMENT.md`)
+✅ **REMOVED**: Bash deployment scripts (not compatible with Coolify)
+✅ **COMPLETED**: Docker-compose selective deployment via native commands
+
+**Coolify Integration Features**:
+- Environment variable template for easy setup
+- Native docker-compose selective deployment commands
+- Health check integration for deployment verification  
+- Resource limits optimized for production
+- Exclude existing postgres/redis as requested
 
 ### ☑ 7.5 Bug Fixes During Phase 7
 ✅ **FIXED**: Added missing `/health` endpoint referenced in Docker health checks

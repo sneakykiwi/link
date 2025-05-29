@@ -1,12 +1,22 @@
+# Copy these environment variables to your Coolify deployment
+# Update the values according to your setup
+
+# Database Configuration (use your existing PostgreSQL instance)
 DATABASE_URL=postgresql://username:password@host:5432/linkdb
+
+# Redis Configuration (use your existing Redis instance)
 REDIS_URL=redis://host:6379
+
+# Application Configuration
 BASE_URL=https://link.aescipher.xyz
 NEXT_PUBLIC_API_URL=https://link.aescipher.xyz
 
+# Server Configuration
 SERVER_HOST=0.0.0.0
 SERVER_PORT=8080
 RUST_LOG=info
 
+# Port Mappings (Coolify will manage these automatically)
 BACKEND_PORT=8080
 FRONTEND_PORT=3000
 PROMETHEUS_PORT=9090
@@ -14,4 +24,5 @@ GRAFANA_PORT=3001
 REDIS_EXPORTER_PORT=9121
 POSTGRES_EXPORTER_PORT=9187
 
+# Monitoring Configuration
 GRAFANA_ADMIN_PASSWORD=changeme123 
