@@ -11,7 +11,7 @@ COPY migrations ./migrations
 
 ENV SQLX_OFFLINE=true
 
-RUN cargo build --release --locked
+RUN cargo build --release
 
 FROM alpine:3.20
 
