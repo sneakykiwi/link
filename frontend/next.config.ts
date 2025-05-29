@@ -1,8 +1,16 @@
 import type { NextConfig } from "next";
+import path from "path";
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
+// Conditionally load bundle analyzer only if available
+let withBundleAnalyzer: any;
+try {
+  withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+  });
+} catch (error) {
+  // Fallback when @next/bundle-analyzer is not available (e.g., in production Docker builds)
+  withBundleAnalyzer = (config: NextConfig) => config;
+}
 
 const nextConfig: NextConfig = {
   output: 'standalone',
@@ -73,6 +81,12 @@ const nextConfig: NextConfig = {
         fs: false,
       };
     }
+    
+    // Add path alias resolution
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname),
+    };
     
     config.optimization.splitChunks = {
       ...config.optimization.splitChunks,
