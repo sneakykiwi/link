@@ -1,0 +1,12 @@
+target/
+.git/
+.gitignore
+README.md
+docker-compose.yml
+Dockerfile
+frontend/
+.env*
+benches/
+*.md
+.idea/
+.cursor/ 
