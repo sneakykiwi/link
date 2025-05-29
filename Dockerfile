@@ -5,10 +5,13 @@ RUN apk add --no-cache musl-dev pkgconfig openssl-dev
 WORKDIR /app
 
 COPY Cargo.toml ./
+COPY .sqlx ./.sqlx
 COPY src ./src
 COPY migrations ./migrations
 
-RUN cargo build --release
+ENV SQLX_OFFLINE=true
+
+RUN cargo build --release --locked
 
 FROM alpine:3.20
 
