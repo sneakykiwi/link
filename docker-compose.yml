@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - "${BACKEND_PORT:-8080}:8080"
+      - "${BACKEND_PORT:-8080}:${SERVER_PORT:-8080}"
     environment:
       - DATABASE_URL=${DATABASE_URL}
       - REDIS_URL=${REDIS_URL}
@@ -14,7 +14,7 @@ services:
       - BASE_URL=${BASE_URL}
       - RUST_LOG=${RUST_LOG:-info}
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      test: ["CMD", "sh", "-c", "wget --no-verbose --tries=1 --spider http://localhost:$${SERVER_PORT:-8080}/health"]
       interval: 30s
       timeout: 10s
       retries: 3
