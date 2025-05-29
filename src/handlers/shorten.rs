@@ -1,15 +1,11 @@
 use axum::{
     extract::State,
-    http::StatusCode,
     response::Json,
 };
 use once_cell::sync::Lazy;
 use prometheus::Counter;
-use serde::{Deserialize, Serialize};
 use sqlx::types::time::OffsetDateTime;
-use std::sync::Arc;
 use time::Duration;
-use tokio::sync::Mutex;
 use url::Url;
 use uuid::Uuid;
 
@@ -18,11 +14,7 @@ use crate::{
     config::CONFIG,
     error::AppError,
     models::link::{CreateLinkRequest, CreateLinkResponse, Link},
-    services::{
-        cache::CacheService, 
-        db::DbService,
-        shortener::{generate_short_code_base62, is_valid_custom_code},
-    },
+    services::shortener::{generate_short_code_base62, is_valid_custom_code},
 };
 
 static LINK_CREATION_COUNT: Lazy<Counter> = Lazy::new(|| {
@@ -55,8 +47,10 @@ pub async fn create_link(
         generate_short_code_base62(&request.url)
     };
     
-    let expires_at: Option<OffsetDateTime> = request.expires_in_hours
-        .map(|hours| OffsetDateTime::now_utc() + Duration::hours(hours as i64));
+    let expires_at = match request.expires_in_hours {
+        Some(hours) => Some(OffsetDateTime::now_utc() + time::Duration::hours(hours as i64)),
+        None => None,
+    };
     
     let link = Link {
         id: Uuid::new_v4(),
